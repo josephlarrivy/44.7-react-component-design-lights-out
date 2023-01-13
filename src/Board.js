@@ -29,17 +29,44 @@ import "./Board.css";
 
 function Board({ nrows, ncols, chanceLightStartsOn }) {
   const [board, setBoard] = useState(createBoard());
-
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
   function createBoard() {
+    // TODO: DONE - create array-of-arrays of true/false values
+    const randomTrueOrFalse = () => {
+      let num = Math.random();
+      if (num < chanceLightStartsOn) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     let initialBoard = [];
-    // TODO: create array-of-arrays of true/false values
+    for (let i=0; i<nrows; i++) {
+      let row = [];
+      for (let i=0; i<ncols; i++) {
+        row.push(randomTrueOrFalse())
+      }
+      initialBoard.push(row)
+    }
+
+    console.log(initialBoard)
     return initialBoard;
   }
 
-  function hasWon() {
-    // TODO: check the board in state to determine whether the player has won.
+  function hasWon(board) {
+    // TODO: DONE - check the board in state to determine whether the player has won.
+    let stringBoard = JSON.stringify(board)
+    let testWin = stringBoard.indexOf('false')
+    if (testWin === -1) {
+      console.log('win')
+      return ('win')
+    } else {
+      console.log('not win')
+      return ('not win')
+    }
   }
+
 
   function flipCellsAround(coord) {
     setBoard(oldBoard => {
@@ -60,6 +87,12 @@ function Board({ nrows, ncols, chanceLightStartsOn }) {
       // TODO: return the copy
     });
   }
+
+  return(
+    <>
+      <Cell />
+    </>
+  )
 
   // if the game is won, just show a winning msg & render nothing else
 
