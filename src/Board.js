@@ -110,34 +110,37 @@ function Board({ nrows=4, ncols=4, chanceLightStartsOn=0.5 }) {
         <h1>Win</h1>
       </>
     )
+  }
+  // TODO: Done - make table board
+  let table = [];
 
-  // TODO: make table board
-let tableBoard = [];
 
   for (let y = 0; y < nrows; y++) {
-    let row = [];
+    let tablerow = [];
     for (let x = 0; x < ncols; x++) {
       let coord = `${y}-${x}`;
-      row.push(
+      tablerow.push(
         <Cell
-          key={coord}
-          isLit={board[y][x]}
           flipCellsAroundMe={() => flipCellsAround(coord)}
+          isLit={board[y][x]}
         />
       );
     }
-    tableBoard.push(<tr key={y}>{row}</tr>);
+
+    table.push(<tr key={y}>{tablerow}</tr>);
   }
+
+
 
   return (
     <table className="Board">
-      <tbody>{tableBoard}</tbody>
+      <tbody>{table}</tbody>
     </table>
   );
 }
 
   
 
-}
+
 
 export default Board;
